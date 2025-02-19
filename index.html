@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Date Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white; /* Text color for contrast on black background */
+        }
+        #calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            color: black; /* Reset text color for calculator box */
+        }
+        input[type="text"] {
+            font-size: 24px;
+            width: 200px;
+        }
+        button {
+            font-size: 24px;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <h2>Retirement Date Calculator</h2>
+        <label for="dob">Date of Birth (DDMMYYYY):</label>
+        <input type="text" id="dob" maxlength="10" oninput="formatDate()" required>
+        <br><br>
+        <button onclick="calculateRetirementDate()">Calculate Retirement Date</button>
+        <p id="retirementDate"></p>
+    </div>
+
+    <script>
+        function formatDate() {
+            let input = document.getElementById('dob');
+            let val = input.value.replace(/\D/g, ''); // Remove non-digit characters
+            if (val.length > 6) {
+                val = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4);
+            } else if (val.length > 4) {
+                val = val.slice(0, 2) + '-' + val.slice(2);
+            }
+            input.value = val;
+        }
+
+        function calculateRetirementDate() {
+            const dobInput = document.getElementById('dob').value;
+            if (dobInput) {
+                // Parse the formatted date string
+                const [d, m, y] = dobInput.split('-').map(Number);
+                if (!y || !m || !d || y < 1000 || y > 2999 || m > 12 || d > 31) {
+                    document.getElementById('retirementDate').innerText = 'Please enter a valid date.';
+                    return;
+                }
+
+                const dob = new Date(y, m - 1, d); // Month is 0-indexed in JavaScript
+                const retirementAge = 60;
+
+                let retirementDate = new Date(dob);
+                retirementDate.setFullYear(dob.getFullYear() + retirementAge);
+
+                // Set to the last day of the retirement month
+                retirementDate.setMonth(retirementDate.getMonth() + 1, 0); // 0 for last day
+
+                // Format the retirement date
+                const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                const formattedDate = `${retirementDate.getDate().toString().padStart(2, '0')}/${months[retirementDate.getMonth()]}/${retirementDate.getFullYear()}`;
+
+                // Display the formatted retirement date
+                document.getElementById('retirementDate').innerText = `Your retirement date is: ${formattedDate}`;
+            } else {
+                document.getElementById('retirementDate').innerText = 'Please enter your date of birth.';
+            }
+        }
+    </script>
+</body>
+</html>
