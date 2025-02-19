@@ -43,7 +43,7 @@
 </head>
 <body>
     <div id="calculator">
-        <h2>Jayanta Retirement Calculator</h2>
+        <h2>Jayanta Retirement Cal</h2>
         <label for="dob">Date of Birth (DDMMYYYY):</label>
         <input type="text" id="dob" maxlength="10" oninput="formatDate()" required>
         <br><br>
@@ -87,7 +87,7 @@
                 const formattedDate = `${retirementDate.getDate().toString().padStart(2, '0')}-${months[retirementDate.getMonth()]}-${retirementDate.getFullYear()}`;
 
                 // Display the formatted retirement date
-                document.getElementById('retirementDate').innerText = `Your retirement date is: ${formattedDate}`;
+                document.getElementById('retirementDate').innerText = `Your retirement date is:      ${formattedDate}`;
             } else {
                 document.getElementById('retirementDate').innerText = 'Please enter your date of birth.';
             }
