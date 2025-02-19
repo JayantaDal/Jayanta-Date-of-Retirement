@@ -84,10 +84,10 @@
 
                 // Format the retirement date
                 const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-                const formattedDate = `${retirementDate.getDate().toString().padStart(2, '0')}-${months[retirementDate.getMonth()]}-${retirementDate.getFullYear()}`;
+                const formattedDate = `${retirementDate.getDate().toString().padStart(2, '0')} - ${months[retirementDate.getMonth()]} - ${retirementDate.getFullYear()}`;
 
                 // Display the formatted retirement date
-                document.getElementById('retirementDate').innerText = `Your retirement date is:      ${formattedDate}`;
+                document.getElementById('retirementDate').innerText = `Your retirement date is   :      ${formattedDate}`;
             } else {
                 document.getElementById('retirementDate').innerText = 'Please enter your date of birth.';
             }
